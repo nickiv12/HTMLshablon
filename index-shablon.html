@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Переключаем IE в режим edge если он другом режиме  -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- ГЛАВНЫЕ ФАЙЛЫ со стилями и скриптами -->
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="js/jquery-2.2.3.min.js"></script>
+	<script src="js/main.js"></script>
+	<!--	подключаем js и css файлы СТРАНИЦЫ -->
+
+	<title>shablon-v01-02</title>
+</head>
+
+
+<body>
+	<div class="cont-site">
+		<!-- 1. ЗАГОЛОВОК начало  -->
+		<header class='header flex b'>
+			<h1 class='blue-3d-text'>CSS3 - в помощь НАЧИНАЮЩИМ</h1>
+			<!-- ПОКАЗ-ОТМЕНА всплывающих подсказок (CSS-class tp)  ≥≤ -->
+			<div class="panel-for-site">
+				<label>
+					<input type="checkbox" id="tip" checked="checked">Показывать перевод английских слов</label>
+				<br>
+				<label>
+					<input type="radio" name='sd-place' id="left" checked="checked">слева </label> &lt;&lt; SIDEBAR &gt;&gt;
+				<label>
+					<input type="radio" name='sd-place' id="right"> справа</label>
+			</div>
+		</header>
+		<!-- 2. САЙДБАР + СТАТЬЯ начало   -->
+		<!-- 2.1. САЙДБАР начало  -->
+		<div class="main flex b">
+			<nav class="sidebar b">SIDEBAR
+				<ol>
+					<li><a href="index.php?page_id=1">background</a></li>
+					<li><a href="index.php?page_id=2">Добавление слов в словарь</a></li>
+					<li><a href="#">ссылка</a></li>
+					<li><a href="#">ссылка</a></li>
+					<li><a href="#">ссылка</a></li>
+				</ol>
+			</nav>
+
+			<!-- 2.2. СТАТЬЯ начало  -->
+			<article class="article">
+			<p id="for-script"></p> <!-- ОБЯЗАТЕЛЬНО нахождение в index - сюда поступает скрипт -->
+			<!--	3. ВСТАВЛЯЕМАЯ СТРАНИЦА		-->
+
+				<!--	3. конец ВСТАВЛЯЕМАЯ СТРАНИЦА	-->
+			</article>
+			<!-- 2.2. СТАТЬЯ конец  -->
+		</div>
+		<footer class="footer b"> FOOTER
+			<ul id="no-word-translate">
+
+			</ul>
+		</footer>
+	</div>
+
+</body>
+
+</html>

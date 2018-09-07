@@ -1,0 +1,286 @@
+/* === 0. боксовая модель, шрифты НАЧАЛО */
+html {
+	box-sizing: border-box; /* https://ymatuhin.ru/front-end/better_box_sizing/*/
+/* шрифт - семейство, размер, цвет.	*/
+	font-family: Helvetica, Arial, Verdana, sans-serif; /*   */
+	font-size: 0.72em;
+	line-height: 1.2;
+	color: #585877;
+}
+*, *:before, *:after { box-sizing: inherit; } /* наследуют  box-sizing от родителя  */
+
+.bold {font-weight: bold;} /* сделать текст элемента жирным */
+
+/*  ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ */
+.type-effect {
+	white-space: nowrap;
+  display: inline-block; /* это позволяет задавать размер для строки цветного кода !!!*/
+	width: 500px;/* подбирать по ширине родительского блока, auto - не подходит*/
+	height: 15px;/* это свойство будет изменяться в 0 с помощью JS без анимации */
+	margin-bottom: -3px;
+	overflow: hidden;/* скрываю текст, который не помещается*/
+	/* Задаю свойства НЕ универсальным свойством transition */
+	transition-property: width;/* свойство, значение которого будет переходить в 0 */
+	transition-duration: 1000ms; /* время перехода */
+}
+/* ОБЯЗАТЕЛЬНО НИЖЕ ЧЕМ класс type-effect
+Этот класс позволяет создавать анимаци печатающей машинки с помощью CSS */
+.type-effect-width0 {
+	width: 0px;
+}
+
+/* ========= ВСПЛЫВАЮЩИЕ ПОДСКАЗКИ - немного переделано  ===============
+источник http://makoveckij.ru/vsplyivayushhie-podskazki-na-css/#.V2BdSNKLS01 */
+.tp{
+	color: #A357BD;/* цвет английского текста - Серый вариант */
+  position: relative;
+}
+.tp:hover {cursor: help;}/* тип курсора при наведении */
+
+/* появляющаяся подсказка	*/
+.tp:hover::after{
+  content: attr(data-translate);/* подставляю в content содержимое атрибута */
+	font-family: UbuntuMono-R;/* подключаю свой шрифт, в котором есть знаки транскрипции */
+	font-size: 1.2rem;/* надо задать размер, иначе наследует от родителя и будет разный размер у разных элементов */
+	text-align: left;/* выравниваю текст влево*/
+	text-indent: 0;/* надо обязательноу указать, иначе будет отступ у первой строки, а вторая строка будет выступать слева */
+
+	/* темно-синий вариант	*/
+	color: #fff;/* цвет шрифта */
+	border: 2px solid #ccc;/* я оставил старый - не так черно */
+  opacity: .9;/* прозрачность */
+	background-color: #1e2227;/* фоновый цвет */
+  background-image: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,0)); /* градиент */
+	text-shadow: 0 1px 0 #000;
+  opacity: .9;/* прозрачность */
+
+	padding: 5px;/* отступы */
+  border-radius: 5px;
+
+	/* позиционировани всплывающей подсказки	*/
+  position: absolute;
+  width: 300px;
+  bottom: 21px;
+  left: 0;/* позиционируем от начала слова */
+  z-index: 98;/* z-index не работает, НАВЕРНО аfter перекрывает before */
+}
+.tp-left:hover::after {left: -200px;}
+.tp:hover::before{ /* Добавляем стрелочку внизу блока всплывающей подсказки */
+    border: solid;
+   border-color: #ccc transparent; /* серая стрелка*/
+   border-color: #373B3F transparent; /* темно-синяя стрелка */
+    border-width: 6px 6px 0 6px;/* делаем из рамки стрелку вниз */
+    bottom: 15px;
+    content: "";/* без контента */
+    position: absolute;
+    left: 50%;
+    z-index: 99;/* z-index не работает, НАВЕРНО аfter перекрывает before */
+}
+/* управляем показом подсказок */
+.no-tp:hover:after {visibility: hidden;}
+.no-tp:hover:before {visibility: hidden;}
+.no-tp:hover {cursor: auto;}
+/* --------- КОНЕЦ всплывающей подсказки ------------------
+
+/* ----  0.1. ЗАГРУЖАЕМЫЙ для кода моноширинный ШРИФТ -------- */
+@font-face {
+    font-family: UbuntuMono-R ; /* Имя шрифта UbuntuMono-R.ttf*/
+    src: url(../fonts/UbuntuMono-R-my-change-3.ttf);  /*Путь к файлу со шрифтом */
+}
+
+/* ==== 0.2. Расцвечивание кода с помощью одиночных тэгов =================== */
+b { /* тэг в - html ВСЕ тэги <div>, CSS - селекторы, цвет - #446FBE. НЕ Brackets (мой) - синее*/
+  color: #3B00FF ; /* html ВСЕ тэги <div> - не Brackets*/
+  font-weight: normal;
+}
+u { /* тэг u - ВСЕ html-атрибуты тэгов =: class=, style=, href=, rel=, http-equiv=, цвет #6D8600 - Brackets */
+  text-decoration: none;
+  color: #6D8600;
+}
+q, q.tp { /* тэг q - ВСЕ html-атрибутов ЗНАЧЕНИЯ с кавычками "Content-Type", "https://...", названия классов (!!! КРОМЕ ЗНАЧЕНИЙ style) */
+  quotes: none;/* убираем перечеркивание */
+  color: #E88501;
+}
+s { /* тэг s - CSS-свойств НАИМЕНОВАНИЕ вместе с двоеточием и точкой с запятой. background: цвет - #A357BD Brackets */
+  text-decoration: none;/* убираем перечеркивание */
+  color: #A357BD;
+}
+/* Цвет текста шрифта #585877, но можно и ЧЕРНЕЕ*/
+em { /* комментарии Brackets*/
+  font-style: normal; /* убираем курсив*/
+  color: #949494;
+ /* font-weight: bolder;*/
+}
+
+/* !!! Этот тэг ЕЩЕ НЕ ПЕРЕДЕЛАЛ*/
+i {  /* ВСЕ знаки = + , .  ‘ ‘’ ;  /  () {}   */
+  font-style: normal; /* убираем курсив*/
+  color: red;
+} /* -----------------------------*/
+/* ---  КОНЕЦ Расцвечивание кода ----------------------- */
+
+/* === РАБОЧИЕ СТИЛИ начало */
+.b {border: 1px solid brown;} /* рабочая рамка*/
+/*--- рабочие стили конец */
+
+/* 1. === каркас сайта - НАЧАЛО */
+body {margin: 0px auto;} /* Чтобы прижать к верху страницы обязательно для body - 0px , auto - на всякий случай */
+.cont-site {
+	width: 1000px; /* ширина ВСЕГО сайта */
+	margin: 0px auto; /* чтобы выровнять по центру - auto, a 0px - на всякий случай */
+}
+.sidebar {
+	width: 180px; /* ширина САЙДБАРА */
+	min-height: 400px;
+	border-right: 1px solid blue;
+}
+.article {
+	width: 820px; /* ширина ОСНОВНОЙ ЧАСТИ */
+	border-right: 1px solid blue;
+}
+/* --- 1. каркас сайта - КОНЕЦ */
+
+/* === 2. Тэги сайта - НАЧАЛО */
+/* ---  blue-3d-text */
+.blue-3d-text {
+	width: 700px;
+	color: bisque;
+	font-size: 24px;
+  text-shadow: -2px -2px 1px rgb(255,255,255) , -1px -1px 1px rgb(255,255,255) , 1px 1px 1px rgba(232,247,255,0.901961) , 2px 3px 1px rgba(28,67,103,0.498039) , 5px 5px 12px rgba(5,13,20,0.498039) ;
+/*  -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;*/
+/*  -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;*/
+/*  -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;*/
+/*  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1) 10ms;*/
+}
+/* -----------------------------------------*/
+h1, h2, h3, h4, h5, h6 {
+	text-align: center;
+	font-weight: lighter;
+	margin: 3px auto;
+}
+h1, h2, p, ul, ol {margin: 0.5% 0%;}
+p {
+/*	margin: 0px ;*/
+	padding: 0px;
+	text-indent: 2%; /* отступ первой строки */
+	text-align: justify; /* выравнивание текста по всей ширине */
+}
+article {padding: 0% 0.5%;}
+  /*  ---- свойства ПАНЕЛИ УПРАВЛЕНИЯ  ---- */
+.panel{
+  margin: 2px 7px;
+  border: 1px solid #bbb;
+  min-height: 100px;
+	margin: auto;
+  color: #666666;
+  background-color: #f6f6f6;
+  box-shadow: inset 0 0 10px #BABABA; /* ВНУТРЕННЯЯ ТЕНЬ для всех  браузеров кроме ИЕ8 и опера-мини*/
+  border-radius: 3px;
+  /*width: 790px; !!! указыаю в px так как если указывать в 100% то при позиционировании fixed  #controlPanel раздвигается вправо -
+      для него родителем становится окно браузера  */
+  }
+.flex {
+	/* Префиксы для совсем СТАРЫХ БРАУЗЕРОВ http://stackoverflow.com/questions/16595587/webkit-flex-not-displaying-properly-on-android */
+	display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+	/* Префиксы  */
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	/* современное свойство */
+	display: flex;
+}
+/* ---- ОГЛАВЛЕНИЕ СТРАНИЦЫ --- */
+.toc {
+	float: right;
+	width: 250px;
+	min-height: 100px;
+	margin: 2px 10px; /* поля */
+  border: 1px solid #bbb;  /* рамка */
+	padding: 5px; /* отступы */
+  color: #666666;
+  background-color: #f6f6f6;
+  box-shadow: inset 0 0 10px #BABABA; /* ВНУТРЕННЯЯ ТЕНЬ для всех  браузеров кроме ИЕ8 и опера-мини*/
+  border-radius: 5px; /* радиус углов */
+}
+/* cсылка в оглавление */
+.toc-c {
+	padding-left: 50px;
+	font-weight: normal;
+	font-size: 80%;
+	color: green;
+}
+.toc ol {padding-left: 15px; /*сдвигаем пункт списка от левой границы родителя */
+}
+.toc ol li {padding-bottom: 3px;}
+
+/* Двухуровневый нумерованный список */
+.toc ol>li {display: block;}
+.toc ol>li:before {
+	content:counters(item,".") ". ";
+	counter-increment:item;
+}
+ol {
+	counter-reset:item;
+}
+h3:target {
+	background-color: #b8d5fc;
+}
+h3.tech-info {
+	text-align: left;
+	font-weight: bold;
+	margin-left: 0px;
+	width: 400px;
+}
+h3.tech-info:target {
+	background-color: #b8d5fc;
+}
+.toc ol li a {text-decoration: none;}
+.toc ol li a:visited {
+	text-decoration: none; /* убираю подчеркивание */
+	color: #585877; /* делаю цвет посещенной ссылки обычным для сайта */
+}
+/* конец  ОГЛАВЛЕНИЕ */
+
+/* ТАБЛИЦА с краткой информацией  */
+table.short-info {border-collapse: collapse;}
+
+table.short-info td {
+	padding: 4px;
+	border: 1px solid #bbb;
+}
+table.short-info td:nth-child(1) {
+	width: 150px;
+	text-align: right;
+}
+table.short-info td:nth-child(2) {
+	width: 350px;
+	text-align: left;
+}
+
+/*Стили для ячейки таблицы*/
+table.short-info td.td-ws {
+	white-space: pre-wrap;
+}
+
+
+/* --- 2. Тэги сайта - КОНЕЦ */
+
+.for-range {
+	margin-top: 5px;
+	padding-left: 20px;
+	padding-bottom: 5px;
+}
+.header {
+	justify-content: space-between;
+}
+.panel-for-site {
+	padding: 5px 10px 0 0 ;
+}
+.main {
+/*	flex-direction: row-reverse;*/
+}
+
+
